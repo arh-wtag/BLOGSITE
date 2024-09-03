@@ -23,7 +23,7 @@ jobs:
             run: npm install
 
           - name: Install Horusec CLI
-            run: curl -fsSL https://horusec.io/bin/install.sh | bash
+            run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
 
           - name: Run Horusec analysis
             run: horusec start -p .
