@@ -25,13 +25,24 @@ jobs:
           - name: Install Horusec CLI
             run: curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
 
-          - name: Run Horusec analysis
-            run: horusec start -p .
+        #   - name: Run Horusec analysis
+        #     run: horusec start -p .
 
-          - name: Upload Horusec report as an artifact
-            uses: actions/upload-artifact@v3
-            with:
-              name: horusec-report
-              path: .horusec/horusec-result.json
+        #   - name: Upload Horusec report as an artifact
+        #     uses: actions/upload-artifact@v3
+        #     with:
+        #       name: horusec-report
+        #       path: .horusec/horusec-result.json
+
+    checking_code:
+        name: Horusec Scan
+        runs-on: ubuntu-latest
+        
+        steps:
+        - name: Run Horusec
+          id: run_horusec
+          uses: fike/horusec-action@v0.1
+          with:
+            arguments: -p="./" --ignore="**/.vscode/**, **/*.env, **/.mypy_cache/**, **/tests/**"
 
                 
