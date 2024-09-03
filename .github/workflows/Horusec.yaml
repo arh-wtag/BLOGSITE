@@ -1,0 +1,38 @@
+name: Horusec Analysis
+
+on:
+  push:
+    branches:
+        - main
+
+jobs:
+    horusec:
+        name: Horusec Analysis
+        runs-on: ubuntu-latest
+    
+    steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: '18' # Adjust to your project's Node.js version
+
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Install Horusec CLI
+          run: curl -fsSL https://horusec.io/bin/install.sh | bash
+
+        - name: Run Horusec analysis
+          run: horusec start -p .
+
+        - name: Upload Horusec report as an artifact
+          uses: actions/upload-artifact@v3
+          with:
+            name: horusec-report
+            path: .horusec/horusec-result.json
+
+            
